@@ -1,6 +1,6 @@
 # FAAD2 WASM Bindings
 
-This project provides WebAssembly (WASM) bindings for the FAAD2 AAC decoder, enabling AAC audio decoding in both web browsers and Node.js applications.
+This project provides WebAssembly (WASM) bindings for the FAAD2 AAC decoder, enabling AAC audio decoding in both web browsers and Node.js applications. 
 
 **Fork Information:**
 - Original project: [ohrstrom/faad2-wasm](https://github.com/ohrstrom/faad2-wasm)
