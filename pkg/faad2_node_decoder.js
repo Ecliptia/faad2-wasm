@@ -10,7 +10,7 @@ try {
   const module = await import('./faad2_wasm.mjs')
   Faad2ModuleFactory = module.default
 } catch (err) {
-  console.error('Failed to load FAAD2 WASM module:', err.message)
+  throw new Error(`Failed to load FAAD2 WASM module: ${err.message}`)
 }
 
 const SAMPLE_RATE = {
@@ -42,11 +42,6 @@ class FAAD2NodeDecoder {
       this.module = await Faad2ModuleFactory({
         wasmBinary,
       })
-      
-      console.debug('FAAD2: Node.js module loaded')
-      if (this.module._get_faad_capabilities) {
-        console.debug('FAAD2: capabilities', this.module._get_faad_capabilities())
-      }
     }
   }
 
@@ -70,7 +65,6 @@ class FAAD2NodeDecoder {
         asc[0] = (profile << 3) | (sampleRateIndex >> 1)
         asc[1] = ((sampleRateIndex & 0x01) << 7) | (channelConfig << 3)
         
-        console.debug('FAAD2: Detected ADTS - profile:', profile, 'sr_idx:', sampleRateIndex, 'ch:', channelConfig)
         return asc
       }
     }
@@ -128,13 +122,6 @@ class FAAD2NodeDecoder {
     }
 
     this.initialized = true
-
-    console.debug(
-      'FAAD2NodeDecoder: configured with ASC',
-      Array.from(asc)
-        .map(b => `0x${b.toString(16).padStart(2, '0').toUpperCase()}`)
-        .join(', ')
-    )
   }
 
   /**

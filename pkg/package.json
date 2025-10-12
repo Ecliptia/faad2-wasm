@@ -1,6 +1,6 @@
 {
   "name": "@ecliptia/faad2-wasm",
-  "version": "2.11.2-ecliptia.1",
+  "version": "2.11.2-ecliptia.2",
   "description": "FAAD2 WASM decoder with Node.js support and Windows build compatibility (fork of @ohrstrom/faad2-wasm)",
   "main": "faad2_wasm.mjs",
   "type": "module",
