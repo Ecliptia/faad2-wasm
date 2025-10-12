@@ -1,5 +1,6 @@
 FAAD2 WASM Bindings
-Copyright (C) 2025  Jonas Ohrstrom
+Copyright (C) 2025  Jonas Ohrstrom (original)
+Copyright (C) 2025  Ecliptia (modifications and enhancements)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
@@ -14,7 +15,21 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-```text
+---
+
+This is a fork of the original faad2-wasm project by Jonas Ohrstrom.
+Original project: https://github.com/ohrstrom/faad2-wasm
+
+Modifications in this fork include:
+- Windows build support (build.bat, Makefile.win)
+- Node.js decoder with automatic format detection
+- ADTS header auto-detection and removal
+- Multiple output formats (Float32, Int16, Planar)
+- Enhanced documentation
+- Stream processing examples
+
+---
+
 For FAAD2 the following license applies:
 
 ******************************************************************************
@@ -44,4 +59,6 @@ For FAAD2 the following license applies:
 ** Commercial non-GPL licensing of this software is possible.
 ** For more info contact Nero AG through Mpeg4AAClicense@nero.com.
 ******************************************************************************
-```
+
+Code from FAAD2 is copyright (c) Nero AG, www.nero.com
+

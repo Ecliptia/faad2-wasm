@@ -1,20 +1,25 @@
 {
-  "name": "@ohrstrom/faad2-wasm",
-  "version": "2.11.2-rc.4",
-  "description": "FAAD2 WASM decoder",
+  "name": "@ecliptia/faad2-wasm",
+  "version": "2.11.2-ecliptia.1",
+  "description": "FAAD2 WASM decoder with Node.js support and Windows build compatibility (fork of @ohrstrom/faad2-wasm)",
   "main": "faad2_wasm.mjs",
   "type": "module",
   "files": [
     "faad2_wasm.mjs",
     "faad2_wasm.wasm",
-    "faad2_decoder.js"
+    "faad2_decoder.js",
+    "faad2_node_decoder.js",
+    "LICENSE"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ohrstrom/faad2-wasm.git"
+    "url": "git+https://github.com/Ecliptia/faad2-wasm.git"
   },
   "author": "Jonas Ohrstrom <ohrstrom@gmail.com>",
-  "license": "LGPL-3.0-or-later",
+  "contributors": [
+    "Ecliptia Team (Windows support, Node.js enhancements)"
+  ],
+  "license": "AGPL-3.0-or-later",
   "keywords": [
     "aac",
     "audio",
@@ -22,9 +27,20 @@
     "faad2",
     "wasm",
     "audio-decoding",
-    "web-audio"
+    "web-audio",
+    "nodejs",
+    "adts",
+    "windows",
+    "stereo"
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "homepage": "https://github.com/Ecliptia/faad2-wasm#readme",
+  "bugs": {
+    "url": "https://github.com/Ecliptia/faad2-wasm/issues"
   }
 }

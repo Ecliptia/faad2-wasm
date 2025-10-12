@@ -1,0 +1,56 @@
+# Windows-compatible Makefile for FAAD2 WASM
+# Use this on Windows with Make installed via Chocolatey or similar
+
+SHELL := cmd
+EMSDK_VERSION := 4.0.11
+
+.PHONY: setup-submodules
+setup-submodules:
+	git submodule init
+	git submodule update
+	git submodule status
+
+.PHONY: setup-emsdk
+setup-emsdk:
+	cd emsdk && emsdk.bat install $(EMSDK_VERSION)
+	cd emsdk && emsdk.bat activate $(EMSDK_VERSION)
+
+.PHONY: setup
+setup: setup-submodules setup-emsdk
+
+.PHONY: ensure-headers
+ensure-headers:
+	@if not exist faad2\include\faad.h (copy faad2\include\faad.h.in faad2\include\faad.h)
+
+.PHONY: patch-libfaad
+patch-libfaad:
+	@echo Applying patch to libfaad...
+	@patch -p0 --forward --quiet < patch\libfaad.diff || echo Patch failed or already applied
+
+.PHONY: clean
+clean:
+	@if exist pkg\faad2_wasm.mjs del pkg\faad2_wasm.mjs
+	@if exist pkg\faad2_wasm.wasm del pkg\faad2_wasm.wasm
+
+.PHONY: build
+build:
+	cd emsdk && call emsdk_env.bat && cd .. && cd faad2 && emcc ../src/faad2_wasm.c libfaad/*.c -I. -Ilibfaad -Iinclude -O3 -DPACKAGE_VERSION=\"2.11.2\" -s STACK_SIZE=262144 -s EXPORTED_FUNCTIONS="[\"_get_faad_capabilities\",\"_init_decoder\",\"_decode_frame\",\"_malloc\",\"_free\"]" -s EXPORTED_RUNTIME_METHODS="[\"ccall\",\"cwrap\",\"getValue\",\"setValue\",\"writeArrayToMemory\",\"HEAPU8\"]" -s MODULARIZE=1 -s EXPORT_NAME="Faad2Module" -s ALLOW_MEMORY_GROWTH=1 -s ENVIRONMENT="web" -o ../pkg/faad2_wasm.mjs
+
+.PHONY: build-node
+build-node:
+	cd emsdk && call emsdk_env.bat && cd .. && cd faad2 && emcc ../src/faad2_wasm.c libfaad/*.c -I. -Ilibfaad -Iinclude -O3 -DPACKAGE_VERSION=\"2.11.2\" -s STACK_SIZE=262144 -s EXPORTED_FUNCTIONS="[\"_get_faad_capabilities\",\"_init_decoder\",\"_decode_frame\",\"_malloc\",\"_free\"]" -s EXPORTED_RUNTIME_METHODS="[\"ccall\",\"cwrap\",\"getValue\",\"setValue\",\"writeArrayToMemory\",\"HEAPU8\"]" -s MODULARIZE=1 -s EXPORT_NAME="Faad2Module" -s ALLOW_MEMORY_GROWTH=1 -s ENVIRONMENT="node,web" -o ../pkg/faad2_wasm.mjs
+
+.PHONY: help
+help:
+	@echo FAAD2 WASM Build System - Windows
+	@echo.
+	@echo Available targets:
+	@echo   setup-submodules  - Initialize git submodules
+	@echo   setup-emsdk      - Install and activate Emscripten SDK
+	@echo   setup            - Run both setup targets
+	@echo   ensure-headers   - Copy header files
+	@echo   patch-libfaad    - Apply patches to libfaad
+	@echo   build            - Build WASM module for web
+	@echo   build-node       - Build WASM module for Node.js
+	@echo   clean            - Remove built files
+	@echo   help             - Show this help message
