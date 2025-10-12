@@ -130,6 +130,7 @@ build.bat build-node
 The compiled files will be placed in the `pkg/` directory:
 - `faad2_wasm.mjs` - JavaScript module
 - `faad2_wasm.wasm` - WebAssembly binary
+- `faad2_node_decoder.js` - Node.js decoder module
 
 ## Troubleshooting Windows Build Issues
 

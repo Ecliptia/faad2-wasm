@@ -8,6 +8,8 @@ This library allows you to decode AAC-HE and AAC-HE-v2 with PS in browsers that 
 
 ## Usage
 
+### Browser Usage
+
 ```javascript
 import FAAD2Decoder from '@ohrstrom/faad2-wasm/faad2_decoder.js'
 ```
@@ -29,6 +31,29 @@ await audioDecoder.configure({
 })
 
 ```
+
+### Node.js Usage
+
+```javascript
+import FAAD2NodeDecoder from '@ohrstrom/faad2-wasm/faad2_node_decoder.js'
+
+const decoder = new FAAD2NodeDecoder()
+await decoder.ready
+
+// Decode AAC data
+const aacData = Buffer.from([/* your AAC data */])
+const pcmData = await decoder.decode(aacData)
+
+console.log('Sample Rate:', decoder.sampleRate)
+console.log('Channels:', decoder.channels)
+console.log('PCM Data:', pcmData) // Float32Array
+```
+
+The Node.js decoder automatically detects:
+- ADTS headers and extracts AudioSpecificConfig
+- Sample rate and channel configuration
+- Supports stereo output (2 channels)
+- Returns Float32Array with decoded PCM audio
 
 ## Copyrights FAAD2
 

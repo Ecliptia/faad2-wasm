@@ -250,7 +250,6 @@ class FAAD2NodeDecoder {
     this.reset()
     // Note: WASM module doesn't require manual destruction
   }
-  }
 }
 
 export default FAAD2NodeDecoder

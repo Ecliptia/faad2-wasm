@@ -48,6 +48,7 @@ jobs:
           path: |
             pkg/faad2_wasm.mjs
             pkg/faad2_wasm.wasm
+            pkg/faad2_node_decoder.js
 
   release:
     name: Release
@@ -71,6 +72,7 @@ jobs:
           files: |
             faad2_wasm.mjs
             faad2_wasm.wasm
+            faad2_node_decoder.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -95,7 +97,7 @@ jobs:
           name: faad2-wasm
 
       - name: Move artifacts
-        run: mv faad2_wasm.mjs faad2_wasm.wasm pkg/
+        run: mv faad2_wasm.mjs faad2_wasm.wasm faad2_node_decoder.js pkg/
 
       - run: npm ci
         working-directory: pkg/
