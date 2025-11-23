@@ -42,5 +42,8 @@
   "homepage": "https://github.com/Ecliptia/faad2-wasm#readme",
   "bugs": {
     "url": "https://github.com/Ecliptia/faad2-wasm/issues"
+  },
+  "dependencies": {
+    "mp4box": "^2.1.2"
   }
 }
